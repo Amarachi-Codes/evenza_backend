@@ -4,6 +4,7 @@ import configuration from "./config/config";
 import cors from "cors"
 import { userRouter } from "./route/user.routes";
 import authRouter from "./route/auth.routes";
+import { eventRouter } from "./route/event.routes";
 
 dotenv.config()
 
@@ -33,6 +34,7 @@ app.use(express.json());
 
 app.use("api/v1/users", userRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/events", eventRouter);
 app.use(express.urlencoded({extended:true}));
 
 
