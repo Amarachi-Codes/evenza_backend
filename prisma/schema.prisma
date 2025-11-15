@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  userName  String    @unique
+  email     String    @unique
+  password  String
+  firstName String?
+  lastName  String?
+  phone     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  role      Role      @default(USER)
+  bookings  Booking[]
+}
+
+model Event {
+  id          Int       @id @default(autoincrement())
+  title       String    @unique
+  description String?
+  date        DateTime  @default(now())
+  location    String
+  bookings    Booking[]
+}
+
+model Booking {
+  id      Int           @id @default(autoincrement())
+  userId  Int
+  eventId Int
+  status  BookingStatus @default(PENDING)
+  event   Event         @relation(fields: [eventId], references: [id])
+  user    User          @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+  ORGANIZER
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
