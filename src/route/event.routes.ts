@@ -11,17 +11,24 @@ const eventController = new EventController();
 // Authenticated routes
 eventRouter.get("/", authMiddleware(), eventController.getAllEvents);
 
-eventRouter.post("/create",
-     authMiddleware(["ADMIN", "ORGANIZER"]), 
-     dtoValidationMiddleware(EventDto),
-     eventController.createEvent);
+eventRouter.post(
+  "/create",
+  authMiddleware(["ADMIN", "ORGANIZER"]),
+  dtoValidationMiddleware(EventDto),
+  eventController.createEvent
+);
 
-eventRouter.post("/bookings",
-     authMiddleware(),
-     dtoValidationMiddleware(BookingDto),
-     eventController.bookEvent);
+eventRouter.post(
+  "/bookings",
+  authMiddleware(),
+  dtoValidationMiddleware(BookingDto),
+  eventController.bookEvent
+);
 
+eventRouter.get("/bookings", authMiddleware(), eventController.getAllBookings);
 
-     eventRouter.get("/bookings",
-          authMiddleware(),
-          eventController.getAllBookings);
+eventRouter.get(
+  "/my_events",
+  authMiddleware(),
+  eventController.getEventsBookedByUser
+);
