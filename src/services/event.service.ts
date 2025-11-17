@@ -8,5 +8,7 @@ getAllEvents():Promise<EventResponseDto[]>;
 
 createEvents(data:EventDto):Promise<EventResponseDto>
 
-bookEvent(data: BookingDto):Promise<BookingResponseDto>
+bookEvent(data: BookingDto):Promise<BookingResponseDto>;
+
+getAllBookings():Promise<BookingResponseDto[]>
 }

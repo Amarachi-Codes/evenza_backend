@@ -19,7 +19,9 @@ eventRouter.post("/create",
 eventRouter.post("/bookings",
      authMiddleware(),
      dtoValidationMiddleware(BookingDto),
-     eventController.bookEvent
+     eventController.bookEvent);
 
-     
-)
+
+     eventRouter.get("/bookings",
+          authMiddleware(),
+          eventController.getAllBookings);

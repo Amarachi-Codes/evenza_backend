@@ -9,6 +9,19 @@ import { logger } from "../../utils/logger.util";
 import { EventService } from "../event.service";
 
 export class EventServiceimpl implements EventService{
+    async getAllBookings(): Promise<BookingResponseDto[]> {
+        const allBookings= await db.booking.findMany({
+            select:{
+                id: true,
+               userId: true,
+               eventId: true,
+               status: true
+
+            },
+        });
+        return allBookings as BookingResponseDto[];
+
+    }
     async bookEvent(data: BookingDto): Promise<BookingResponseDto> {
         const {userId, eventId} = data;
 

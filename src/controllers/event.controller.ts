@@ -37,4 +37,14 @@ bookEvent = asyncHandler(async(req:AuthRequest, res:Response) =>{
     res.status(201).json(booking)
 });
 
+        // Get all bookings(authenticated)
+getAllBookings = asyncHandler(async(req: AuthRequest, res: Response)=>{
+     if(!req.user){
+        throw new AppError("Unauthorized", 401)
+    }
+
+    const allBookings = await this.eventService.getAllBookings()
+    res.status(200).json(allBookings)
+})
+
 }
